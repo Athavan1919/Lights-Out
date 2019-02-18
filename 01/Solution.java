@@ -66,8 +66,10 @@ public class Solution {
 
     public boolean equals(Object other){
 
-        //Your code here
-        
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        return true;        
     }
 
 
