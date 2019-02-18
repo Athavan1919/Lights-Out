@@ -8,8 +8,15 @@
 public class Solution {
 
 
-    // Your variables here
-
+    private int row;
+    private int column;
+    
+    private int inital_row = 0;
+    private int inital_column = 0;
+    private int counter = 0;
+    
+    private boolean[][] gameArray;
+    
 
     /**
      * Constructor. Creates an instance of Solution 
@@ -24,8 +31,10 @@ public class Solution {
      */
     public Solution(int width, int height) {
 
-        //Your code here
-        
+        row = height;
+        column = width;
+        gameArray = new boolean[row][column];
+
     }
 
    /**
@@ -38,8 +47,9 @@ public class Solution {
      */
      public Solution(Solution other) {
 
-        //Your code here
-        
+        row = other.row;
+        column = other.column;
+
     }
 
 
@@ -70,8 +80,13 @@ public class Solution {
     */
     public boolean isReady(){
 
-        //Your code here
+        int max = row*column;
+        if (counter == max) {
+            return true;
+        }
+        return false;
         
+            
     }
 
     /** 
@@ -93,8 +108,25 @@ public class Solution {
     */
     public void setNext(boolean nextValue) {
 
-        //Your code here
         
+        gameArray[inital_row][inital_column] = nextValue;
+        inital_column++;
+        
+        
+        if(inital_column == column) {
+            inital_column = 0;
+            inital_row++;
+            if (inital_row == row) {
+                inital_row = 0;
+            }
+        }
+        
+        if (inital_column > column || inital_row > row) {
+            System.out.println("Max column or row is reached");
+        }
+        
+        counter++;
+
     }
     
     /**
@@ -124,8 +156,13 @@ public class Solution {
      */
     public String toString() {
  
-        //Your code here
-        
+        String aString = "";
+          for(int row = 0; row < gameArray.length; row++) {
+             for(int col = 0; col < gameArray[row].length; col++) {
+                    aString += " " + gameArray[row][col];
+             }
+          }
+          return "[" + aString + "]";        
     }
 
 }
