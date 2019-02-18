@@ -68,8 +68,10 @@ public class Solution {
 
     public boolean equals(Object other){
 
-        return true;
-        
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        return true;        
     }
 
 
@@ -109,9 +111,8 @@ public class Solution {
     *  of the solution
     */
     public void setNext(boolean nextValue) {
-    	System.out.println(inital_row + " " + inital_column);
     	if (nextValue == true){
-        	oddCounter[inital_row][inital_column] += 5;
+        	oddCounter[inital_row][inital_column] += 1;
         	
         	if (0 <= (inital_row-1) && (inital_row-1) <oddCounter.length){
         		oddCounter[inital_row-1][inital_column] += 1;
@@ -164,8 +165,6 @@ public class Solution {
     * and works
     */
     public boolean isSuccessful(){
-    	System.out.println(oddCounter.length);
-    	System.out.println("");
     	for (int i = 0; i < row; i++){
         	for (int j = 0; j < column; j++){
         		System.out.println(oddCounter[i][j]);
