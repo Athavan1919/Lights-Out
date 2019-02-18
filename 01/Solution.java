@@ -16,6 +16,7 @@ public class Solution {
     private int counter = 0;
     
     private boolean[][] gameArray;
+    private int [][] oddCounter; 
     
 
     /**
@@ -34,6 +35,7 @@ public class Solution {
         row = height;
         column = width;
         gameArray = new boolean[row][column];
+        oddCounter = new int[column][column];
 
     }
 
@@ -66,7 +68,7 @@ public class Solution {
 
     public boolean equals(Object other){
 
-        //Your code here
+        return true;
         
     }
 
@@ -107,7 +109,27 @@ public class Solution {
     *  of the solution
     */
     public void setNext(boolean nextValue) {
+    	System.out.println(inital_row + " " + inital_column);
+    	if (nextValue == true){
+        	oddCounter[inital_row][inital_column] += 5;
+        	
+        	if (0 <= (inital_row-1) && (inital_row-1) <oddCounter.length){
+        		oddCounter[inital_row-1][inital_column] += 1;
+        	}
 
+        	if (0 <= (inital_row+1) && (inital_row+1) < oddCounter.length){
+        		oddCounter[inital_row+1][inital_column] += 1;
+        	}
+
+        	if (0 <= (inital_column-1) && (inital_column-1) <oddCounter.length){
+        		oddCounter[inital_row][inital_column-1] += 1;
+        	}
+
+        	if (0 <= (inital_column+1) && (inital_column+1) < oddCounter.length){
+        		oddCounter[inital_row][inital_column+1] += 1;
+        	}
+
+        }
         
         gameArray[inital_row][inital_column] = nextValue;
         inital_column++;
@@ -127,6 +149,7 @@ public class Solution {
         
         counter++;
 
+
     }
     
     /**
@@ -141,8 +164,22 @@ public class Solution {
     * and works
     */
     public boolean isSuccessful(){
+    	System.out.println(oddCounter.length);
+    	System.out.println("");
+    	for (int i = 0; i < row; i++){
+        	for (int j = 0; j < column; j++){
+        		System.out.println(oddCounter[i][j]);
+        	}
+        }
 
-        //Your code here
+        for (int i = 0; i < row; i++){
+        	for (int j = 0; j < column; j++){
+        		if (oddCounter[i][j] % 2 == 0){
+        			return false;
+        		}
+        	}
+        }
+        return true;
         
 
     }

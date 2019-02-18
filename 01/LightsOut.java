@@ -13,6 +13,8 @@ import java.util.ArrayList;
 public class LightsOut {
 
     // Your variables here
+    private ArrayListSolutionQueue partialSolutions;
+    private ArrayList<Solution> solutions; 
 
 
 
@@ -42,7 +44,27 @@ public class LightsOut {
      */
     public static ArrayList<Solution> solve(int width, int height){
 
-        //Your code here
+        Solution current;
+        partialSolutions = new ArrayListSolutionQueue();
+        Solution partial = new Solution(width,height);
+        partialSolutions.enqueue(partial);
+        
+        while (partialSolutions.isEmpty() != true){
+            current = partialSolutions.dequeue();
+
+            if (current.isReady() && current.isSuceesful()){
+                solutons.add(current);
+            }else{
+                Solutions newPartial = new Solutions(current);
+                while (newPartial.isReady() != true){
+                    newPartial.setNext(true);
+                }
+
+
+            }
+        }
+
+        return solutions;
         
     }
 
