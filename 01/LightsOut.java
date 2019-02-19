@@ -50,14 +50,11 @@ public class LightsOut {
         ArrayListSolutionQueue partialSolutions = new ArrayListSolutionQueue();
 
         Solution partial = new Solution(width,height);
-        partial.setNext(true);
         partialSolutions.enqueue(partial);
          
         while (partialSolutions.isEmpty() != true){
            
             current = partialSolutions.dequeue();
-            System.out.println(current);
-            
             if (current.isReady()){
                 if (current.isSuccessful()){
                     solutions.add(current);

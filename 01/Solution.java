@@ -35,7 +35,7 @@ public class Solution {
         row = height;
         column = width;
         gameArray = new boolean[row][column];
-        oddCounter = new int[column][column];
+        oddCounter = new int[row][column];
 
     }
 
@@ -55,8 +55,20 @@ public class Solution {
     	inital_column =other.inital_column;
     	counter =other.counter;
     
-    	gameArray = other.gameArray;
-    	oddCounter = other.oddCounter; 
+    	gameArray = new boolean[row][column];
+    	for (int i = 0; i < row; i++){
+    		for (int j = 0; j < column; j++){
+    			gameArray[i][j] =  other.gameArray[i][j];
+    		}
+    	}
+
+    	oddCounter = new int [row][column];
+    	for (int x = 0; x < row; x++){
+    		for (int y = 0; y < column; y++){
+    			oddCounter[x][y] = other.oddCounter[x][y];
+    		}
+    	}
+   
 
     }
 
@@ -117,26 +129,51 @@ public class Solution {
     *  of the solution
     */
     public void setNext(boolean nextValue) {
-    	if (nextValue == true){
-        	oddCounter[inital_row][inital_column] += 1;
-        	
-        	if (0 <= (inital_row-1) && (inital_row-1) <oddCounter.length){
-        		oddCounter[inital_row-1][inital_column] += 1;
+    	if (Math.pow(row,column) != row*column){
+        	if (nextValue == true){
+        		oddCounter[inital_row][inital_column] += 1;
+        
+	        	if ((0 <= (inital_row-1)) && ((inital_row-1) <oddCounter.length)){
+	        		oddCounter[inital_row-1][inital_column] += 1;
+	        	}
+
+	        	if ((0 <= (inital_row+1)) && ((inital_row+1) < oddCounter.length)){
+	        		oddCounter[inital_row+1][inital_column] += 1;
+	        	}
+
+	        	if ((0 <= (inital_column-1)) && ((inital_column-1) <= oddCounter.length)){
+	        		oddCounter[inital_row][inital_column-1] += 1;
+	        	}
+
+	        	if ((0 <= (inital_column+1)) && ((inital_column+1) <= oddCounter.length)){
+	        		oddCounter[inital_row][inital_column+1] += 1;
+	        	}
+
+        	}		
+    	} else {
+    		if (nextValue == true){
+        		oddCounter[inital_row][inital_column] += 1;
+        
+	        	if ((0 <= (inital_row-1)) && ((inital_row-1) <oddCounter.length)){
+	        		oddCounter[inital_row-1][inital_column] += 1;
+	        	}
+
+	        	if ((0 <= (inital_row+1)) && ((inital_row+1) < oddCounter.length)){
+	        		oddCounter[inital_row+1][inital_column] += 1;
+	        	}
+
+	        	if ((0 <= (inital_column-1)) && ((inital_column-1) < oddCounter.length)){
+	        		oddCounter[inital_row][inital_column-1] += 1;
+	        	}
+
+	        	if ((0 <= (inital_column+1)) && ((inital_column+1) < oddCounter.length)){
+	        		oddCounter[inital_row][inital_column+1] += 1;
+	        	}
+
         	}
 
-        	if (0 <= (inital_row+1) && (inital_row+1) < oddCounter.length){
-        		oddCounter[inital_row+1][inital_column] += 1;
-        	}
+    	}
 
-        	if (0 <= (inital_column-1) && (inital_column-1) <oddCounter.length){
-        		oddCounter[inital_row][inital_column-1] += 1;
-        	}
-
-        	if (0 <= (inital_column+1) && (inital_column+1) < oddCounter.length){
-        		oddCounter[inital_row][inital_column+1] += 1;
-        	}
-
-        }
         
         gameArray[inital_row][inital_column] = nextValue;
         inital_column++;
@@ -157,11 +194,11 @@ public class Solution {
         counter++;
 
 
-    }
+    } 
     
     /**
     * returns <b>true</b> if the solution is completely 
-    * specified and is indeed working, that is, if it 
+    * specified and is indeed working, thatis, if it 
     * will bring a board of the specified dimensions 
     * from being  entirely ``off'' to being  entirely 
     * ``on''.
@@ -174,6 +211,7 @@ public class Solution {
 
         for (int i = 0; i < row; i++){
         	for (int j = 0; j < column; j++){
+        		//System.out.println(oddCounter[i][j]);
         		if (oddCounter[i][j] % 2 == 0){
         			return false;
         		}
