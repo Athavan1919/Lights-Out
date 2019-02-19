@@ -4,7 +4,7 @@ public class Test{
 		solution = new Solution(2,2);
 		solution.setNext(true);
 		solution.setNext(true);
-		solution.setNext(true);
+		solution.setNext(false);
 		System.out.println("Midway - The solution is ready: " + solution.isReady());
 		solution.setNext(true);
 		//solution.setNext(true);

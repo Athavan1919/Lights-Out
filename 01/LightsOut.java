@@ -96,7 +96,7 @@ public class LightsOut {
 
         StudentInfo.display();
 
-        System.out.println(solve(2,2));
+        System.out.println(solve(3,2));
         
     }
 }

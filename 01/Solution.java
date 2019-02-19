@@ -129,50 +129,27 @@ public class Solution {
     *  of the solution
     */
     public void setNext(boolean nextValue) {
-    	if (Math.pow(row,column) != row*column){
-        	if (nextValue == true){
+
+    	if (nextValue == true){
         		oddCounter[inital_row][inital_column] += 1;
         
-	        	if ((0 <= (inital_row-1)) && ((inital_row-1) <oddCounter.length)){
+	        	if ((0 <= (inital_row-1)) && ((inital_row-1) < row)){
 	        		oddCounter[inital_row-1][inital_column] += 1;
 	        	}
 
-	        	if ((0 <= (inital_row+1)) && ((inital_row+1) < oddCounter.length)){
+	        	if ((0 <= (inital_row+1)) && ((inital_row+1) < row)){
 	        		oddCounter[inital_row+1][inital_column] += 1;
 	        	}
 
-	        	if ((0 <= (inital_column-1)) && ((inital_column-1) <= oddCounter.length)){
+	        	if ((0 <= (inital_column-1)) && ((inital_column-1) <= column)){
 	        		oddCounter[inital_row][inital_column-1] += 1;
 	        	}
 
-	        	if ((0 <= (inital_column+1)) && ((inital_column+1) <= oddCounter.length)){
+	        	if ((0 <= (inital_column+1)) && ((inital_column+1) < column)){
 	        		oddCounter[inital_row][inital_column+1] += 1;
 	        	}
 
-        	}		
-    	} else {
-    		if (nextValue == true){
-        		oddCounter[inital_row][inital_column] += 1;
-        
-	        	if ((0 <= (inital_row-1)) && ((inital_row-1) <oddCounter.length)){
-	        		oddCounter[inital_row-1][inital_column] += 1;
-	        	}
-
-	        	if ((0 <= (inital_row+1)) && ((inital_row+1) < oddCounter.length)){
-	        		oddCounter[inital_row+1][inital_column] += 1;
-	        	}
-
-	        	if ((0 <= (inital_column-1)) && ((inital_column-1) < oddCounter.length)){
-	        		oddCounter[inital_row][inital_column-1] += 1;
-	        	}
-
-	        	if ((0 <= (inital_column+1)) && ((inital_column+1) < oddCounter.length)){
-	        		oddCounter[inital_row][inital_column+1] += 1;
-	        	}
-
-        	}
-
-    	}
+       	}	
 
         
         gameArray[inital_row][inital_column] = nextValue;
