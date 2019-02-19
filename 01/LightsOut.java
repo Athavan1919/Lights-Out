@@ -64,12 +64,12 @@ public class LightsOut {
                 }
 
             }else{
-                System.out.println("Hi!");
 
                 Solution newPartial = new Solution(current);
-                //error occurs here
-                current.setNext(true);
-                newPartial.setNext(false);
+                //error occurs here because the deep copy is broken, both are set to true because they both refer to same place
+                //current affected by newPartial when it shouldn't
+                current.setNext(false);
+                newPartial.setNext(true);
 
                 partialSolutions.enqueue(current);
                 partialSolutions.enqueue(newPartial);
