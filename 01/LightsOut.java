@@ -96,7 +96,11 @@ public class LightsOut {
 
         StudentInfo.display();
 
-        System.out.println(solve(3,2));
         
+        ArrayList<Solution> answer = solve(3,3);
+        System.out.println(answer);
+        
+        System.out.println("Found " + answer.size() + " Solutions");
+
     }
 }

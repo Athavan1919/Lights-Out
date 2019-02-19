@@ -103,7 +103,7 @@ public class Solution {
     public boolean isReady(){
 
         int max = row*column;
-        if (counter == max) {
+        if (counter >= max) {
             return true;
         }
         return false;
@@ -131,23 +131,23 @@ public class Solution {
     public void setNext(boolean nextValue) {
 
     	if (nextValue == true){
-        		oddCounter[inital_row][inital_column] += 1;
-        
-	        	if ((0 <= (inital_row-1)) && ((inital_row-1) < row)){
-	        		oddCounter[inital_row-1][inital_column] += 1;
-	        	}
+    		oddCounter[inital_row][inital_column] += 1;
+    
+        	if ((0 <= (inital_row-1)) && ((inital_row-1) < row)){
+        		oddCounter[inital_row-1][inital_column] += 1;
+        	}
 
-	        	if ((0 <= (inital_row+1)) && ((inital_row+1) < row)){
-	        		oddCounter[inital_row+1][inital_column] += 1;
-	        	}
+        	if ((0 <= (inital_row+1)) && ((inital_row+1) < row)){
+        		oddCounter[inital_row+1][inital_column] += 1;
+        	}
 
-	        	if ((0 <= (inital_column-1)) && ((inital_column-1) <= column)){
-	        		oddCounter[inital_row][inital_column-1] += 1;
-	        	}
+        	if ((0 <= (inital_column-1)) && ((inital_column-1) <= column)){
+        		oddCounter[inital_row][inital_column-1] += 1;
+        	}
 
-	        	if ((0 <= (inital_column+1)) && ((inital_column+1) < column)){
-	        		oddCounter[inital_row][inital_column+1] += 1;
-	        	}
+        	if ((0 <= (inital_column+1)) && ((inital_column+1) < column)){
+        		oddCounter[inital_row][inital_column+1] += 1;
+        	}
 
        	}	
 
