@@ -13,8 +13,9 @@ import java.util.ArrayList;
 public class LightsOut {
 
     // Your variables here
-    private ArrayListSolutionQueue partialSolutions;
-    private ArrayList<Solution> solutions; 
+    
+    //private ArrayListSolutionQueue partialSolutions;
+    //private ArrayList<Solution> solutions; 
 
 
 
@@ -43,27 +44,39 @@ public class LightsOut {
      * containing all the solutions
      */
     public static ArrayList<Solution> solve(int width, int height){
-
         Solution current;
-        partialSolutions = new ArrayListSolutionQueue();
-        Solution partial = new Solution(width,height);
-        partialSolutions.enqueue(partial);
         
-        while (partialSolutions.isEmpty() != true){
-            current = partialSolutions.dequeue();
+        ArrayList<Solution> solutions = new ArrayList<Solution>();
+        ArrayListSolutionQueue partialSolutions = new ArrayListSolutionQueue();
 
-            if (current.isReady() && current.isSuceesful()){
-                solutons.add(current);
-            }else{
-                Solutions newPartial = new Solutions(current);
-                while (newPartial.isReady() != true){
-                    newPartial.setNext(true);
+        Solution partial = new Solution(width,height);
+        partial.setNext(true);
+        partialSolutions.enqueue(partial);
+         
+        while (partialSolutions.isEmpty() != true){
+           
+            current = partialSolutions.dequeue();
+            System.out.println(current);
+            
+            if (current.isReady()){
+                if (current.isSuccessful()){
+                    solutions.add(current);
                 }
+
+            }else{
+                System.out.println("Hi!");
+
+                Solution newPartial = new Solution(current);
+                //error occurs here
+                current.setNext(true);
+                newPartial.setNext(false);
+
+                partialSolutions.enqueue(current);
+                partialSolutions.enqueue(newPartial);
 
 
             }
         }
-
         return solutions;
         
     }
@@ -86,7 +99,7 @@ public class LightsOut {
 
         StudentInfo.display();
 
-        //Your code here
+        System.out.println(solve(2,2));
         
     }
 }

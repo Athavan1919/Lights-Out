@@ -48,9 +48,15 @@ public class Solution {
      *  Instance of solution to deep-copy
      */
      public Solution(Solution other) {
-
-        row = other.row;
-        column = other.column;
+     	row =other.row;
+    	column = other.column;
+    
+    	inital_row = other.inital_row;
+    	inital_column =other.inital_column;
+    	counter =other.counter;
+    
+    	gameArray = other.gameArray;
+    	oddCounter = other.oddCounter; 
 
     }
 
@@ -165,11 +171,6 @@ public class Solution {
     * and works
     */
     public boolean isSuccessful(){
-    	for (int i = 0; i < row; i++){
-        	for (int j = 0; j < column; j++){
-        		System.out.println(oddCounter[i][j]);
-        	}
-        }
 
         for (int i = 0; i < row; i++){
         	for (int j = 0; j < column; j++){

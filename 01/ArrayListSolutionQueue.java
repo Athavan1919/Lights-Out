@@ -63,5 +63,8 @@ public class ArrayListSolutionQueue implements SolutionQueue {
         return (length == 0);
         
     }
+    public int size(){
+        return queue.size();
+    }
 
 }
