@@ -47,9 +47,6 @@ public class LightsOut {
 
         long start, stop, elapsed;
 
-
-
-
         Solution current;
         
         ArrayList<Solution> solutions = new ArrayList<Solution>();
@@ -58,16 +55,18 @@ public class LightsOut {
         Solution partial = new Solution(width,height);
         partialSolutions.enqueue(partial);
         
-        start = System.currentTimeMillis(); // start the clock
+        start = System.currentTimeMillis(); 
     
         while (partialSolutions.isEmpty() != true){
            
             current = partialSolutions.dequeue();
+            
             if (current.isReady()){
                 if (current.isSuccessful()){
+                    
                     solutions.add(current);
                     
-                    stop = System.currentTimeMillis(); // stop the clock
+                    stop = System.currentTimeMillis(); 
                     elapsed = stop - start;
                     System.out.println("Solution found in " + elapsed+ " ms");
                 }
@@ -75,8 +74,7 @@ public class LightsOut {
             }else{
 
                 Solution newPartial = new Solution(current);
-                //error occurs here because the deep copy is broken, both are set to true because they both refer to same place
-                //current affected by newPartial when it shouldn't
+                
                 current.setNext(false);
                 newPartial.setNext(true);
 
@@ -109,7 +107,7 @@ public class LightsOut {
         StudentInfo.display();
         System.out.println("");
        
-        ArrayList<Solution> answer = solve(5,4);
+        ArrayList<Solution> answer = solve(4,4);
         for (int i = 0; i < answer.size(); i++){
             System.out.println(answer.get(i));
             System.out.println("*****");

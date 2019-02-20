@@ -7,8 +7,15 @@
  */
 public class Solution {
 
-
-    // Your variables here
+    private int row;
+    private int column;
+    
+    private int inital_row = 0;
+    private int inital_column = 0;
+    private int counter = 0;
+    
+    private boolean[][] gameArray;
+    private int [][] oddCounter; 
 
 
     /**
@@ -23,8 +30,10 @@ public class Solution {
      *  the height of the board
      */
     public Solution(int width, int height) {
-
-        //Your code here
+        row = height;
+        column = width;
+        gameArray = new boolean[row][column];
+        oddCounter = new int[row][column];
         
     }
 
@@ -38,7 +47,27 @@ public class Solution {
      */
      public Solution(Solution other) {
 
-        //Your code here
+        row =other.row;
+        column = other.column;
+    
+        inital_row = other.inital_row;
+        inital_column =other.inital_column;
+        counter =other.counter;
+    
+        gameArray = new boolean[row][column];
+        for (int i = 0; i < row; i++){
+            for (int j = 0; j < column; j++){
+                gameArray[i][j] =  other.gameArray[i][j];
+            }
+        }
+
+        oddCounter = new int [row][column];
+        for (int x = 0; x < row; x++){
+            for (int y = 0; y < column; y++){
+                oddCounter[x][y] = other.oddCounter[x][y];
+            }
+        }
+   
         
     }
 
@@ -56,7 +85,10 @@ public class Solution {
 
     public boolean equals(Object other){
 
-        //Your code here
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        return true; 
         
     }
 
@@ -70,7 +102,11 @@ public class Solution {
     */
     public boolean isReady(){
 
-        //Your code here
+        int max = row*column;
+        if (counter >= max) {
+            return true;
+        }
+        return false;
         
     }
 
@@ -93,7 +129,46 @@ public class Solution {
     */
     public void setNext(boolean nextValue) {
 
-        //Your code here
+        if (nextValue == true){
+            oddCounter[inital_row][inital_column] += 1;
+    
+            if ((0 <= (inital_row-1)) && ((inital_row-1) < row)){
+                oddCounter[inital_row-1][inital_column] += 1;
+            }
+
+            if ((0 <= (inital_row+1)) && ((inital_row+1) < row)){
+                oddCounter[inital_row+1][inital_column] += 1;
+            }
+
+            if ((0 <= (inital_column-1)) && ((inital_column-1) <= column)){
+                oddCounter[inital_row][inital_column-1] += 1;
+            }
+
+            if ((0 <= (inital_column+1)) && ((inital_column+1) < column)){
+                oddCounter[inital_row][inital_column+1] += 1;
+            }
+
+        }   
+
+        
+        gameArray[inital_row][inital_column] = nextValue;
+        inital_column++;
+        
+        
+        if(inital_column == column) {
+            inital_column = 0;
+            inital_row++;
+            if (inital_row == row) {
+                inital_row = 0;
+            }
+        }
+        
+        if (inital_column > column || inital_row > row) {
+            System.out.println("Max column or row is reached");
+        }
+        
+        counter++;
+
         
     }
     
@@ -110,7 +185,15 @@ public class Solution {
     */
     public boolean isSuccessful(){
 
-        //Your code here
+        for (int i = 0; i < row; i++){
+            for (int j = 0; j < column; j++){
+                //System.out.println(oddCounter[i][j]);
+                if (oddCounter[i][j] % 2 == 0){
+                    return false;
+                }
+            }
+        }
+        return true;
         
 
     }
@@ -143,7 +226,13 @@ public class Solution {
      */
     public String toString() {
  
-        //Your code here
+        String aString = "";
+          for(int row = 0; row < gameArray.length; row++) {
+             for(int col = 0; col < gameArray[row].length; col++) {
+                    aString += " " + gameArray[row][col];
+            }
+        }
+        return "[" + aString + "]";  
         
     }
 

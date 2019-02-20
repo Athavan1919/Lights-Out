@@ -2,6 +2,7 @@ Part 1:
 	Add timer for when Solutions are found
 	Add so input is a runtime thing (rather than manually through main)
 	Fix toString so the arrays are printed out cleaner 
+	Fix equals too
 
 Part 2:
 	Start it

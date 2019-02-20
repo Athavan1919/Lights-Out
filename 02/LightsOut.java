@@ -45,7 +45,48 @@ public class LightsOut {
      */
     public static ArrayList<Solution> solve(int width, int height){
 
-        //Your code here
+        long start, stop, elapsed;
+
+        Solution current;
+        
+        ArrayList<Solution> solutions = new ArrayList<Solution>();
+        ArrayListSolutionQueue partialSolutions = new ArrayListSolutionQueue();
+
+        Solution partial = new Solution(width,height);
+        partialSolutions.enqueue(partial);
+        
+        start = System.currentTimeMillis(); 
+    
+        while (partialSolutions.isEmpty() != true){
+           
+            current = partialSolutions.dequeue();
+            
+            if (current.isReady()){
+                if (current.isSuccessful()){
+                    
+                    solutions.add(current);
+                    
+                    stop = System.currentTimeMillis(); 
+                    elapsed = stop - start;
+                    System.out.println("Solution found in " + elapsed+ " ms");
+                }
+
+            }else{
+
+                Solution newPartial = new Solution(current);
+                
+                current.setNext(false);
+                newPartial.setNext(true);
+
+                partialSolutions.enqueue(current);
+                partialSolutions.enqueue(newPartial);
+
+
+            }
+        }
+        return solutions;
+        
+    }
         
     }
 
@@ -67,7 +108,15 @@ public class LightsOut {
 
         StudentInfo.display();
 
-        //Your code here
+        System.out.println("");
+       
+        ArrayList<Solution> answer = solve(4,4);
+        for (int i = 0; i < answer.size(); i++){
+            System.out.println(answer.get(i));
+            System.out.println("*****");
+        }
+        
+        System.out.println("Found " + answer.size() + " Solutions");
         
     }
 }
