@@ -44,6 +44,12 @@ public class LightsOut {
      * containing all the solutions
      */
     public static ArrayList<Solution> solve(int width, int height){
+
+        long start, stop, elapsed;
+
+
+
+
         Solution current;
         
         ArrayList<Solution> solutions = new ArrayList<Solution>();
@@ -51,13 +57,19 @@ public class LightsOut {
 
         Solution partial = new Solution(width,height);
         partialSolutions.enqueue(partial);
-         
+        
+        start = System.currentTimeMillis(); // start the clock
+    
         while (partialSolutions.isEmpty() != true){
            
             current = partialSolutions.dequeue();
             if (current.isReady()){
                 if (current.isSuccessful()){
                     solutions.add(current);
+                    
+                    stop = System.currentTimeMillis(); // stop the clock
+                    elapsed = stop - start;
+                    System.out.println("Solution found in " + elapsed+ " ms");
                 }
 
             }else{
@@ -95,10 +107,13 @@ public class LightsOut {
     public static void main(String[] args) {
 
         StudentInfo.display();
-
-        
-        ArrayList<Solution> answer = solve(3,3);
-        System.out.println(answer);
+        System.out.println("");
+       
+        ArrayList<Solution> answer = solve(5,4);
+        for (int i = 0; i < answer.size(); i++){
+            System.out.println(answer.get(i));
+            System.out.println("*****");
+        }
         
         System.out.println("Found " + answer.size() + " Solutions");
 
