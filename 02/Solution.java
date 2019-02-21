@@ -212,9 +212,21 @@ public class Solution {
     */
     public boolean stillPossible(boolean nextValue) {
 
-        //Your code here
+        setNext(nextValue);
+            
+        if (inital_column == 0) {
+            inital_column = row;
+        }
+            
+        if (inital_row == 0) {
+            inital_row = row;
+        }
+ 
+        if (oddCounter[inital_row-1][inital_column-1] % 2 == 0) {
+            return false;
+        }
+        return true;
         
-
     }
 
 
