@@ -187,7 +187,6 @@ public class Solution {
 
         for (int i = 0; i < row; i++){
             for (int j = 0; j < column; j++){
-                //System.out.println(oddCounter[i][j]);
                 if (oddCounter[i][j] % 2 == 0){
                     return false;
                 }
@@ -211,18 +210,14 @@ public class Solution {
     * is possible!)
     */
     public boolean stillPossible(boolean nextValue) {
-
-        setNext(nextValue);
-            
-        if (inital_column == 0) {
-            inital_column = row;
-        }
-            
         if (inital_row == 0) {
-            inital_row = row;
+            return true; 
         }
- 
-        if (oddCounter[inital_row-1][inital_column-1] % 2 == 0) {
+
+        Solution test = new Solution(this);
+        test.setNext(nextValue);
+
+        if ((test.oddCounter[inital_row-1][inital_column] % 2) == 0) {
             return false;
         }
         return true;
@@ -238,13 +233,29 @@ public class Solution {
      */
     public String toString() {
  
-        String aString = "";
-          for(int row = 0; row < gameArray.length; row++) {
-             for(int col = 0; col < gameArray[row].length; col++) {
-                    aString += " " + gameArray[row][col];
+        String array_output = "[[";
+            for (int row = 0; row < gameArray.length; row++) {
+                if (row>0) {
+                    array_output += "[";
+                }
+                
+                for(int column = 0; column < gameArray[row].length; column++) {
+                    if (column < gameArray[row].length - 1) {
+                        array_output += gameArray[row][column] + ", "; 
+                    }
+                    else {
+                        array_output += gameArray[row][column];
+                    }
+                    
+                }
+                
+                if (row != gameArray.length - 1) {
+                    array_output += ("], " + System.lineSeparator());
+                }
+                
             }
-        }
-        return "[" + aString + "]";  
+            array_output += "]]";
+            return array_output;
         
     }
 

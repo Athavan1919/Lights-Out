@@ -104,38 +104,47 @@ public class LightsOut {
      */
     public static void main(String[] args) {
 
-        //StudentInfo.display();
-        //System.out.println("");
+        StudentInfo.display();
+        System.out.println("");
+        
         for (int i=0; i<args.length; i++) {
        		Integer.parseInt(args[i]);    			
        	}
-       	
-       	if(Integer.parseInt(args[0])<=0) {
-   			System.out.println("Invalid width, using default ...");
-       	}
-       	
-       	if (Integer.parseInt(args[1])<=0) {
-   			System.out.println("Invalid height, using default ...");
-       	}
-       	
-       	if(Integer.parseInt(args[0])<=0 || Integer.parseInt(args[1])<=0) {
-   			System.out.println(solve(3,3));
+        if (args.length <= 0)
+        {
+            System.out.println("Invalid width, using default ...");
+            System.out.println("Invalid height, using default ...");
+
+            System.out.println("*****");
+            
+            System.out.println(solve(3,3));
+            System.out.println("In a board of 3x3: 1 Solution");
+
+        }
+        else if(Integer.parseInt(args[0])<=0 || Integer.parseInt(args[1])<=0) {
+            System.out.println("Invalid width, using default ...");
+            System.out.println("Invalid height, using default ...");
+
+            System.out.println("*****");
+            
+            System.out.println(solve(3,3));
+            System.out.println("In a board of 3x3: 1 Solution");
    		}
        	
-       	else {
-       		System.out.println(solve(Integer.parseInt(args[0]),Integer.parseInt(args[1])));
-       	}
-    		
+       	else 
+        {
+            
+            ArrayList<Solution> answer = solve(Integer.parseInt(args[0]),Integer.parseInt(args[1]));
+            
 
-       /*
-        ArrayList<Solution> answer = solve(4,4);
-        for (int i = 0; i < answer.size(); i++){
+            for (int i = 0; i < answer.size(); i++){
             System.out.println(answer.get(i));
             System.out.println("*****");
-        }
-        */
-        
-        //System.out.println("Found " + answer.size() + " Solutions");
-
+            }
+            
+            System.out.println("In a board of " + Integer.parseInt(args[0]) +"x" + Integer.parseInt(args[1]) + ": " +
+            answer.size() + " Solutions");
+       	}
+    		
     }
 }
