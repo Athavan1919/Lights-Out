@@ -210,7 +210,77 @@ public class Solution {
     * is possible!)
     */
     public boolean stillPossible(boolean nextValue) {
-        if (inital_row == 0) {
+
+        /*Basically if the test setNext results in a cell above being changed to off, the solution must be discarded
+        in this method we did a nextValue and then reversed it
+        */
+
+        boolean possible; 
+        boolean before = gameArray[inital_row][inital_column];
+
+        //Nothing can be changed above so it's always valid in the first row
+        if (inital_row == 0){
+            return true;
+        }
+
+        setNext(nextValue);
+
+        //The steps below are to reverse the effects of nextValue
+        counter --;
+
+        if ((inital_row == 0)&&(inital_column == 0)){
+            inital_row = row-1;
+            inital_column =  column -1;
+        }else{
+            if (inital_column == 0){
+                inital_row -= 1;
+                inital_column =  column -1;
+            }else{
+                inital_column -=1;
+            }
+        }
+
+        //Now we're back at the starting cell and we test to see if the one above is lit or not
+        if (oddCounter[inital_row-1][inital_column] % 2 == 0) {
+            possible =  false;
+        }else{
+            possible = true;
+        }
+
+        //revert back to original bool value
+        gameArray[inital_row][inital_column] = before;
+
+        //No changes to oddArray if it was false and if it was even then we subtract 1 to revert changes 
+        if (nextValue == false){
+            return possible;
+        
+        }else{
+            oddCounter[inital_row][inital_column] -= 1;
+    
+            if ((0 <= (inital_row-1)) && ((inital_row-1) < row)){
+                oddCounter[inital_row-1][inital_column] -= 1;
+            }
+
+            if ((0 <= (inital_row+1)) && ((inital_row+1) < row)){
+                oddCounter[inital_row+1][inital_column] -= 1;
+            }
+
+            if ((0 <= (inital_column-1)) && ((inital_column-1) <= column)){
+                oddCounter[inital_row][inital_column-1] -= 1;
+            }
+
+            if ((0 <= (inital_column+1)) && ((inital_column+1) < column)){
+                oddCounter[inital_row][inital_column+1] -= 1;
+            }
+
+            return possible;
+
+        }
+
+        /*        i
+        Alternative cleaner but slower solution 
+    
+        f (inital_row == 0) {
             return true; 
         }
 
@@ -221,6 +291,8 @@ public class Solution {
             return false;
         }
         return true;
+
+        */
         
     }
 
