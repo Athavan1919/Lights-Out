@@ -277,10 +277,10 @@ public class Solution {
 
         }
 
-        /*        i
+        /*        
         Alternative cleaner but slower solution 
     
-        f (inital_row == 0) {
+        if (inital_row == 0) {
             return true; 
         }
 
