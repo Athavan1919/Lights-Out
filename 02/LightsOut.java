@@ -13,6 +13,8 @@ import java.util.ArrayList;
 public class LightsOut {
 
     // Your variables here
+    public static ArrayListSolutionQueue partialSolutions;
+    //public static ArrayList<Solution> solutions;
 
 
     /**
@@ -48,9 +50,8 @@ public class LightsOut {
         long start, stop, elapsed;
 
         Solution current;
-        
         ArrayList<Solution> solutions = new ArrayList<Solution>();
-        ArrayListSolutionQueue partialSolutions = new ArrayListSolutionQueue();
+        partialSolutions = new ArrayListSolutionQueue();
 
         Solution partial = new Solution(width,height);
         partialSolutions.enqueue(partial);
@@ -91,17 +92,6 @@ public class LightsOut {
                     partialSolutions.enqueue(current);
 
                 }
- 
-                /*
-
-                Solution newPartial = new Solution(current);
-                
-                current.setNext(false);
-                newPartial.setNext(true);
-
-               partialSolutions.enqueue(current);
-                partialSolutions.enqueue(newPartial);
-                */
 
             }
         }
