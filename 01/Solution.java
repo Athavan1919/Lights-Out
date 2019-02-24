@@ -85,9 +85,16 @@ public class Solution {
      */
 
    public boolean equals(Object other){
+        if (other == null){
+            return false;
+        }
 
         if (other instanceof Solution) {
             Solution c = (Solution) other;
+            if (this.counter != c.counter){
+                return false; 
+            }
+
             if (this.row == c.row && this.column == c.column) {
                     for(int i=0; i<row;i++) {
                         for (int j=0; j<column;j++) {
