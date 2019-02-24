@@ -84,12 +84,23 @@ public class Solution {
      *  referenced object to compare
      */
 
-    public boolean equals(Object other){
+   public boolean equals(Object other){
 
-        if (other == null || getClass() != other.getClass()) {
-            return false;
+        if (other instanceof Solution) {
+            Solution c = (Solution) other;
+            if (this.row == c.row && this.column == c.column) {
+                    for(int i=0; i<row;i++) {
+                        for (int j=0; j<column;j++) {
+                            if (this.gameArray[i][j] != c.gameArray[i][j]) {
+                                return false;
+                            }
+                        }
+                    }
+                    return true;
+            }
         }
-        return true;        
+        return false; 
+        
     }
 
 
