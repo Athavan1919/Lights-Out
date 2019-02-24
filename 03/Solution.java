@@ -8,7 +8,15 @@
 public class Solution {
 
 
-    // Your variables here
+    private int row;
+    private int column;
+    
+    private int inital_row = 0;
+    private int inital_column = 0;
+    private int counter = 0;
+    
+    private boolean[][] gameArray;
+    private int [][] oddCounter; 
 
 
     /**
@@ -23,8 +31,10 @@ public class Solution {
      *  the height of the board
      */
     public Solution(int width, int height) {
-
-        //Your code here
+        row = height;
+        column = width;
+        gameArray = new boolean[row][column];
+        oddCounter = new int[row][column];
         
     }
 
@@ -38,7 +48,27 @@ public class Solution {
      */
      public Solution(Solution other) {
 
-        //Your code here
+        row =other.row;
+        column = other.column;
+    
+        inital_row = other.inital_row;
+        inital_column =other.inital_column;
+        counter =other.counter;
+    
+        gameArray = new boolean[row][column];
+        for (int i = 0; i < row; i++){
+            for (int j = 0; j < column; j++){
+                gameArray[i][j] =  other.gameArray[i][j];
+            }
+        }
+
+        oddCounter = new int [row][column];
+        for (int x = 0; x < row; x++){
+            for (int y = 0; y < column; y++){
+                oddCounter[x][y] = other.oddCounter[x][y];
+            }
+        }
+   
         
     }
 
@@ -56,7 +86,10 @@ public class Solution {
 
     public boolean equals(Object other){
 
-        //Your code here
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        return true; 
         
     }
 
@@ -70,7 +103,11 @@ public class Solution {
     */
     public boolean isReady(){
 
-        //Your code here
+        int max = row*column;
+        if (counter >= max) {
+            return true;
+        }
+        return false;
         
     }
 
@@ -93,7 +130,46 @@ public class Solution {
     */
     public void setNext(boolean nextValue) {
 
-        //Your code here
+        if (nextValue == true){
+            oddCounter[inital_row][inital_column] += 1;
+    
+            if ((0 <= (inital_row-1)) && ((inital_row-1) < row)){
+                oddCounter[inital_row-1][inital_column] += 1;
+            }
+
+            if ((0 <= (inital_row+1)) && ((inital_row+1) < row)){
+                oddCounter[inital_row+1][inital_column] += 1;
+            }
+
+            if ((0 <= (inital_column-1)) && ((inital_column-1) <= column)){
+                oddCounter[inital_row][inital_column-1] += 1;
+            }
+
+            if ((0 <= (inital_column+1)) && ((inital_column+1) < column)){
+                oddCounter[inital_row][inital_column+1] += 1;
+            }
+
+        }   
+
+        
+        gameArray[inital_row][inital_column] = nextValue;
+        inital_column++;
+        
+        
+        if(inital_column == column) {
+            inital_column = 0;
+            inital_row++;
+            if (inital_row == row) {
+                inital_row = 0;
+            }
+        }
+        
+        if (inital_column > column || inital_row > row) {
+            System.out.println("Max column or row is reached");
+        }
+        
+        counter++;
+
         
     }
     
@@ -110,7 +186,14 @@ public class Solution {
     */
     public boolean isSuccessful(){
 
-        //Your code here
+        for (int i = 0; i < row; i++){
+            for (int j = 0; j < column; j++){
+                if (oddCounter[i][j] % 2 == 0){
+                    return false;
+                }
+            }
+        }
+        return true;
         
 
     }
@@ -129,9 +212,87 @@ public class Solution {
     */
     public boolean stillPossible(boolean nextValue) {
 
-        //Your code here
-        
+        /*Basically if the test setNext results in a cell above being changed to off, the solution must be discarded
+        in this method we did a nextValue and then reversed it
+        */
 
+        boolean possible; 
+        boolean before = gameArray[inital_row][inital_column];
+
+        //Nothing can be changed above so it's always valid in the first row
+        if (inital_row == 0){
+            return true;
+        }
+
+        setNext(nextValue);
+
+        //The steps below are to reverse the effects of nextValue
+        counter --;
+
+        if ((inital_row == 0)&&(inital_column == 0)){
+            inital_row = row-1;
+            inital_column =  column -1;
+        }else{
+            if (inital_column == 0){
+                inital_row -= 1;
+                inital_column =  column -1;
+            }else{
+                inital_column -=1;
+            }
+        }
+
+        //Now we're back at the starting cell and we test to see if the one above is lit or not
+        if (oddCounter[inital_row-1][inital_column] % 2 == 0) {
+            possible =  false;
+        }else{
+            possible = true;
+        }
+
+        //revert back to original bool value
+        gameArray[inital_row][inital_column] = before;
+
+        //No changes to oddArray if it was false and if it was even then we subtract 1 to revert changes 
+        if (nextValue == false){
+            return possible;
+        
+        }else{
+            oddCounter[inital_row][inital_column] -= 1;
+    
+            if ((0 <= (inital_row-1)) && ((inital_row-1) < row)){
+                oddCounter[inital_row-1][inital_column] -= 1;
+            }
+
+            if ((0 <= (inital_row+1)) && ((inital_row+1) < row)){
+                oddCounter[inital_row+1][inital_column] -= 1;
+            }
+
+            if ((0 <= (inital_column-1)) && ((inital_column-1) <= column)){
+                oddCounter[inital_row][inital_column-1] -= 1;
+            }
+
+            if ((0 <= (inital_column+1)) && ((inital_column+1) < column)){
+                oddCounter[inital_row][inital_column+1] -= 1;
+            }
+
+            return possible;
+
+        }
+
+        /*        
+        Alternative cleaner but slower solution 
+    
+        if (inital_row == 0) {
+            return true; 
+        }
+        Solution test = new Solution(this);
+            test.setNext(nextValue);
+        if ((test.oddCounter[inital_row-1][inital_column] % 2) == 0) {
+            return false;
+        }
+        return true;
+        */    
+
+        
     }
 
 
@@ -148,11 +309,15 @@ public class Solution {
     * the board is also completed
     */
     public boolean finish(){
-
-        //Your code here
-        
+        while (true != isReady()){
+            if (stillPossible(true)){
+                setNext(true);
+            }else{
+                setNext(false);
+            }
+        }
+        return (isSuccessful());
     }
-
 
     /**
      * returns a string representation of the solution
@@ -162,7 +327,29 @@ public class Solution {
      */
     public String toString() {
  
-        //Your code here
+        String array_output = "[[";
+            for (int row = 0; row < gameArray.length; row++) {
+                if (row>0) {
+                    array_output += "[";
+                }
+                
+                for(int column = 0; column < gameArray[row].length; column++) {
+                    if (column < gameArray[row].length - 1) {
+                        array_output += gameArray[row][column] + ", "; 
+                    }
+                    else {
+                        array_output += gameArray[row][column];
+                    }
+                    
+                }
+                
+                if (row != gameArray.length - 1) {
+                    array_output += ("], " + System.lineSeparator());
+                }
+                
+            }
+            array_output += "]]";
+            return array_output;
         
     }
 

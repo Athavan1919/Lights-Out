@@ -283,16 +283,14 @@ public class Solution {
         if (inital_row == 0) {
             return true; 
         }
-
         Solution test = new Solution(this);
-        test.setNext(nextValue);
-
+        	test.setNext(nextValue);
         if ((test.oddCounter[inital_row-1][inital_column] % 2) == 0) {
             return false;
         }
         return true;
+        */    
 
-        */
         
     }
 

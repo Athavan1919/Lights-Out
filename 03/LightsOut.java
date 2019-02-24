@@ -13,6 +13,8 @@ import java.util.ArrayList;
 public class LightsOut {
 
     // Your variables here
+    public static ArrayListSolutionQueue partialSolutions;
+    //public static ArrayList<Solution> solutions;
 
 
     /**
@@ -28,8 +30,7 @@ public class LightsOut {
      *
      * This version does not continue exploring a 
      * partial solution that is known to be
-     * impossible. It will also attempt to complete
-     * a solution as soon as possible
+     * impossible
      *
      * During the computation of the solution, the 
      * method prints out a message each time a new 
@@ -46,7 +47,52 @@ public class LightsOut {
      */
     public static ArrayList<Solution> solve(int width, int height){
 
-        //Your code here
+        long start, stop, elapsed;
+
+        Solution current;
+        ArrayList<Solution> solutions = new ArrayList<Solution>();
+        partialSolutions = new ArrayListSolutionQueue();
+
+        Solution partial = new Solution(width,height);
+        partialSolutions.enqueue(partial);
+        
+        start = System.currentTimeMillis(); 
+    
+        while (partialSolutions.isEmpty() != true){
+           
+            current = partialSolutions.dequeue();
+            
+            if (current.isReady()){
+                if (current.isSuccessful()){
+                    
+                    solutions.add(current);
+                    
+                    stop = System.currentTimeMillis(); 
+                    elapsed = stop - start;
+                    System.out.println("Solution found in " + elapsed+ " ms");
+                }
+
+            }else{
+
+                if (current.stillPossible(true) && current.stillPossible(false)){
+                    Solution newPartial = new Solution(current);
+                
+                    current.setNext(false);
+                    newPartial.setNext(true);
+
+                    partialSolutions.enqueue(current);
+                    partialSolutions.enqueue(newPartial);
+                    
+                }else{
+                    if (current.finish()){
+                        partialSolutions.enqueue(current);
+                    }
+
+                }
+
+            }
+        }
+        return solutions;
         
     }
 
@@ -67,8 +113,47 @@ public class LightsOut {
     public static void main(String[] args) {
 
         StudentInfo.display();
+        System.out.println("");
+        
+        for (int i=0; i<args.length; i++) {
+            Integer.parseInt(args[i]);              
+        }
+        
+        if (args.length <= 0){
+            System.out.println("Invalid width, using default ...");
+            System.out.println("Invalid height, using default ...");
 
-        //Your code here
+            System.out.println("*****");
+            
+            System.out.println(solve(3,3));
+            System.out.println("In a board of 3x3: 1 Solution");
+
+        }
+        
+        else if(Integer.parseInt(args[0])<=0 || Integer.parseInt(args[1])<=0) {
+            System.out.println("Invalid width, using default ...");
+            System.out.println("Invalid height, using default ...");
+
+            System.out.println("*****");
+            
+            System.out.println(solve(3,3));
+            System.out.println("In a board of 3x3: 1 Solution");
+        }
+        else {
+            
+            ArrayList<Solution> answer = solve(Integer.parseInt(args[0]),Integer.parseInt(args[1]));
+            
+
+            for (int i = 0; i < answer.size(); i++){
+            System.out.println(answer.get(i));
+            System.out.println("*****");
+            }
+            
+            System.out.println("In a board of " + Integer.parseInt(args[0]) +"x" + Integer.parseInt(args[1]) + ": " +
+            answer.size() + " Solutions");
+        }
         
     }
 }
+
+
