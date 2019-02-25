@@ -1,7 +1,0 @@
-Part 1:
-	Fix equals 
-	Add Student stuff/clean comments
-
-Part 2:
-	Fix equals 
-	Add Student stuff/clean comments
